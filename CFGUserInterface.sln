@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFGUserInterface", "CFGUserInterface\CFGUserInterface.csproj", "{ACAC9334-BAFA-4539-ACBC-17B170928667}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ACAC9334-BAFA-4539-ACBC-17B170928667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACAC9334-BAFA-4539-ACBC-17B170928667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACAC9334-BAFA-4539-ACBC-17B170928667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACAC9334-BAFA-4539-ACBC-17B170928667}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3292EE8B-15B6-4742-AD70-B005CAF4FCB5}
+	EndGlobalSection
+EndGlobal
