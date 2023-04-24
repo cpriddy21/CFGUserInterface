@@ -29,7 +29,7 @@ namespace CFGUserInterface
             // create a command with placeholders
             string query = "UPDATE people SET age = @age WHERE name = @name";
             SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@age", new_age);
+            command.Parameters.AddWithValue("@CreditLimit", new_CreditLimit);
             command.Parameters.AddWithValue("@name", user_input);
 
             // open the connection, execute the command, and close the connection
