@@ -69,6 +69,54 @@ namespace CFGUserInterface
             return returnThese;
         }
 
+        public List<Customer> getAllCust()
+        {
+            //start with empty list
+            List<Customer> returnThese = new List<Customer>();
+
+            //connect to swl server
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            MySqlCommand cmd = new MySqlCommand("SELECT * FROM CUSTOMER", connection);
+
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Customer cust = new Customer
+                    {
+                        /*RepNum = new SqlChars(new SqlString(reader.GetString(0))),
+                        LastName = new SqlChars(new SqlString(reader.GetString(1))),
+                        FirstName = new SqlChars(new SqlString(reader.GetString(2))),
+                        Street = new SqlChars(new SqlString(reader.GetString(3))),
+                        City = new SqlChars(new SqlString(reader.GetString(4))),
+                        State = new SqlChars(new SqlString(reader.GetString(5))),
+                        PostalCode = new SqlChars(new SqlString(reader.GetString(6))),
+                        Commission = new SqlDecimal(reader.GetFloat(7)),
+                        Rate = new SqlDecimal(reader.GetFloat(8)),
+                        UserName = new SqlChars(new SqlString(reader.GetString(9))),
+                        PW = new SqlChars(new SqlString(reader.GetString(10)))*/
+
+                        CustomerNum = reader.GetString(0),
+                        CustomerName = reader.GetString(1),
+                        Street = reader.GetString(2),
+                        City = reader.GetString(3),
+                        State = reader.GetString(4),
+                        PostalCode = reader.GetString(5),
+                        Balance = reader.GetFloat(6),
+                        CreditLimit = reader.GetFloat(7),
+                        RepNum = reader.GetString(8),
+                        
+                    };
+                    returnThese.Add(cust);
+                }
+            }
+            connection.Close();
+
+            return returnThese;
+        }
+
         public bool loginCheck(String username, String password)
         {
             bool login = false;
