@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient; 
+using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace CFGUserInterface
 {
@@ -16,11 +17,20 @@ namespace CFGUserInterface
         public RepresentativeReport()
         {
             InitializeComponent();
-            
+
         }
-        
-        
-        private void button1_Click(object sender, EventArgs e)
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+        /*
+* Generate a report that for each representative, listing the number of customers
+  assigned to the representative and the average balance of the representative’s
+  customers along with the representative's first and last name; 
+*/
+
+        /*private void button1_Click(object sender, EventArgs e)
         
             string connectionString = "datasource=localhost;port=3306;username=root;password=78jm.Lkk!1lol;database=CFG;";
             
@@ -32,8 +42,8 @@ namespace CFGUserInterface
                    "JOIN Customer ON Rep.RepNum = Customer.RepNum " +
                    "GROUP BY Rep.LastName, Rep.FirstName " +
                    "ORDER BY Rep.LastName, Rep.FirstName";
-            SqlCommand command = new SqlCommand(query, connection);
-            SqlDataReader reader = command.ExecuteReader();
+            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
 
            
             DataTable dataTable = new DataTable();
@@ -45,7 +55,7 @@ namespace CFGUserInterface
             connection.Close();
             }
       
-        }
+        } */
 
     }
 }
