@@ -16,5 +16,10 @@ namespace CFGUserInterface
         {
             InitializeComponent();
         }
+
+        private void RepresentativeReport_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

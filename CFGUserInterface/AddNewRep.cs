@@ -8,8 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Ocsp;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.AxHost;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace CFGUserInterface
 {
@@ -20,6 +24,13 @@ namespace CFGUserInterface
         public AddNewRep()
         {
             InitializeComponent();
+            RepDAO DAOinstance = new RepDAO();
+
+
+
+            repBindingSource.DataSource = DAOinstance.getAllRep();
+
+            dataGridView1.DataSource = repBindingSource;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -27,19 +38,6 @@ namespace CFGUserInterface
             RepDAO DAOinstance = new RepDAO();
             Rep rep = new Rep()
             {
-                /*RepNum = new SqlChars(new SqlString(textBox1.Text)),
-                LastName = new SqlChars(new SqlString(textBox2.Text)),
-                FirstName = new SqlChars(new SqlString(textBox3.Text)),
-                Street = new SqlChars(new SqlString(textBox4.Text)),
-                City = new SqlChars(new SqlString(textBox5.Text)),
-                State = new SqlChars(new SqlString(textBox6.Text)),
-                PostalCode = new SqlChars(new SqlString(textBox12.Text)),
-                Commission = Convert.ToDecimal(textBox11.Text),
-                Rate = Convert.ToDecimal(textBox10.Text),
-                UserName = new SqlChars(new SqlString(textBox9.Text)),
-                PW = new SqlChars(new SqlString(textBox8.Text)), */
-
-                
                 RepNum = textBox1.Text,
                 FirstName = textBox2.Text,
                 LastName = textBox3.Text,
@@ -53,18 +51,13 @@ namespace CFGUserInterface
                 PW = textBox8.Text
                 
             };
+            
+        
 
-            DAOinstance.AddRep(rep);
+        DAOinstance.AddRep(rep);
             repBindingSource.DataSource = DAOinstance.getAllRep();
 
             dataGridView1.DataSource = repBindingSource;
-
-            /*System.Diagnostics.Debugger.Break();
-            if (DAOinstance.loginCheck(name, PW) == true)
-            {
-                Menu f2 = new Menu();
-                f2.Show();
-            }*/
 
         }
 

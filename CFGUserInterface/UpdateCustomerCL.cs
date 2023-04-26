@@ -17,9 +17,16 @@ namespace CFGUserInterface
         public UpdateCustomerCL()
         {
             InitializeComponent();
+            RepDAO DAOinstance = new RepDAO();
+
+            BindingSource custBindingSource = new BindingSource();
+
+            custBindingSource.DataSource = DAOinstance.getAllCust();
+
+            dataGridView1.DataSource = custBindingSource;
 
             // get user input
-            
+
         }
 
         private void UpdateCustomerCL_Load(object sender, EventArgs e)
@@ -51,6 +58,13 @@ namespace CFGUserInterface
                 //onsole.WriteLine("Rows affected: " + rowsAffected);
                 connection.Close();
             }
+            RepDAO DAOinstance = new RepDAO();
+
+            BindingSource custBindingSource = new BindingSource();
+
+            custBindingSource.DataSource = DAOinstance.getAllCust();
+
+            dataGridView1.DataSource = custBindingSource;
         }
 
         private void button2_Click(object sender, EventArgs e)
