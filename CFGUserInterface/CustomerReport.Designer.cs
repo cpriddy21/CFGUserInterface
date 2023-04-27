@@ -71,7 +71,7 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(200, 39);
             textBox1.TabIndex = 3;
-            textBox1.TextChanged += textBox1_TextChanged;
+            //textBox1.TextChanged += textBox1_TextChanged;
             // 
             // CustomerReport
             // 

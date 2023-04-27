@@ -8,14 +8,16 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
 using static System.Windows.Forms.AxHost;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace CFGUserInterface
 {
-    internal class RepDAO
+    internal class DAO
     {
         //fake data
         //public List<Rep> reps = new List<Rep>();
@@ -37,18 +39,6 @@ namespace CFGUserInterface
                 {
                     Rep rep = new Rep
                     {
-                        /*RepNum = new SqlChars(new SqlString(reader.GetString(0))),
-                        LastName = new SqlChars(new SqlString(reader.GetString(1))),
-                        FirstName = new SqlChars(new SqlString(reader.GetString(2))),
-                        Street = new SqlChars(new SqlString(reader.GetString(3))),
-                        City = new SqlChars(new SqlString(reader.GetString(4))),
-                        State = new SqlChars(new SqlString(reader.GetString(5))),
-                        PostalCode = new SqlChars(new SqlString(reader.GetString(6))),
-                        Commission = new SqlDecimal(reader.GetFloat(7)),
-                        Rate = new SqlDecimal(reader.GetFloat(8)),
-                        UserName = new SqlChars(new SqlString(reader.GetString(9))),
-                        PW = new SqlChars(new SqlString(reader.GetString(10)))*/
-
                         RepNum = reader.GetString(0),
                         LastName = reader.GetString(1),
                         FirstName = reader.GetString(2),
@@ -74,7 +64,7 @@ namespace CFGUserInterface
             //start with empty list
             List<Customer> returnThese = new List<Customer>();
 
-            //connect to swl server
+            //connect to sql server
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 
@@ -86,18 +76,6 @@ namespace CFGUserInterface
                 {
                     Customer cust = new Customer
                     {
-                        /*RepNum = new SqlChars(new SqlString(reader.GetString(0))),
-                        LastName = new SqlChars(new SqlString(reader.GetString(1))),
-                        FirstName = new SqlChars(new SqlString(reader.GetString(2))),
-                        Street = new SqlChars(new SqlString(reader.GetString(3))),
-                        City = new SqlChars(new SqlString(reader.GetString(4))),
-                        State = new SqlChars(new SqlString(reader.GetString(5))),
-                        PostalCode = new SqlChars(new SqlString(reader.GetString(6))),
-                        Commission = new SqlDecimal(reader.GetFloat(7)),
-                        Rate = new SqlDecimal(reader.GetFloat(8)),
-                        UserName = new SqlChars(new SqlString(reader.GetString(9))),
-                        PW = new SqlChars(new SqlString(reader.GetString(10)))*/
-
                         CustomerNum = reader.GetString(0),
                         CustomerName = reader.GetString(1),
                         Street = reader.GetString(2),
@@ -120,7 +98,6 @@ namespace CFGUserInterface
         public bool loginCheck(String username, String password)
         {
             bool login = false;
-            string connectionString = "datasource=localhost;port=3306;username=root;password=78jm.Lkk!1lol;database=CFG;";
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
             MySqlCommand cmd = new MySqlCommand("SELECT * FROM REP", connection);
@@ -130,28 +107,6 @@ namespace CFGUserInterface
                 {
                     Rep rep = new Rep
                     {
-                        /*RepNum = new SqlChars(new SqlString(reader.GetString(0))),
-                        LastName = new SqlChars(new SqlString(reader.GetString(1))),
-                        FirstName = new SqlChars(new SqlString(reader.GetString(2))),
-                        Street = new SqlChars(new SqlString(reader.GetString(3))),
-                        City = new SqlChars(new SqlString(reader.GetString(4))),
-                        State = new SqlChars(new SqlString(reader.GetString(5))),
-                        PostalCode = new SqlChars(new SqlString(reader.GetString(6))),
-                        Commission = new SqlDecimal(reader.GetFloat(7)),
-                        Rate = new SqlDecimal(reader.GetFloat(8)),
-                        UserName = new SqlChars(new SqlString(reader.GetString(9))),
-                        PW = new SqlChars(new SqlString(reader.GetString(10)))
-                        /*RepNum = reader.GetString(0),
-                        LastName = reader.GetString(1),
-                        FirstName = reader.GetString(2),
-                        Street = reader.GetString(3),
-                        City = reader.GetString(4),
-                        State = reader.GetString(5),
-                        PostalCode = reader.GetString(6),
-                        Commission = reader.GetFloat(7),
-                        Rate = reader.GetFloat(8),
-                        UserName = reader.GetString(9),
-                        PW = reader.GetString(10),*/
                         RepNum = reader.GetString(0),
                         LastName = reader.GetString(1),
                         FirstName = reader.GetString(2),
@@ -181,10 +136,8 @@ namespace CFGUserInterface
 
         public void AddRep(Rep rep)
         {
-            string connectionString = "datasource=localhost;port=3306;username=root;password=78jm.Lkk!1lol;database=CFG;";
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
-            //MySqlCommand cmd = new MySqlCommand("INSERT INTO REP\nVALUES\n('" + RepNum + "','" + LastName + "','" + FirstName + "','" + Street + "','" + City + "','" + State + "','" + PostalCode + "'," + Commission + "," + Rate + ", '" + UserName + "','" + Password + "');", connection);
             MySqlCommand cmd = new MySqlCommand("INSERT INTO REP VALUES (@RepNum,@LastName,@FirstName,@Street,@City,@State,@PostalCode,@Commission,@Rate,@UserName,@Password);", connection);
             cmd.Parameters.AddWithValue("@RepNum", rep.RepNum);
             cmd.Parameters.AddWithValue("@LastName", rep.LastName);
@@ -200,6 +153,77 @@ namespace CFGUserInterface
             int newRows = cmd.ExecuteNonQuery();
         }
 
+        public void CreditLimit(String customerName, Decimal newCreditLimit)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                // create a command with placeholders
+                string query = "UPDATE customer SET CreditLimit = @CL WHERE CustomerName = @name";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@CL", newCreditLimit);
+                command.Parameters.AddWithValue("@name", customerName);
+
+                // open the connection, execute the command, and close the connection
+                connection.Open();
+                command.ExecuteNonQuery();
+                //onsole.WriteLine("Rows affected: " + rowsAffected);
+                connection.Close();
+            }
+        }
+
+        public DataTable RepReport()
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+
+                string query = "SELECT Rep.LastName, Rep.FirstName, COUNT(*) AS NumCustomers, AVG(Customer.Balance) AS AvgBalance " +
+                       "FROM Rep " +
+                       "JOIN Customer ON Rep.RepNum = Customer.RepNum " +
+                       "GROUP BY Rep.LastName, Rep.FirstName " +
+                       "ORDER BY Rep.LastName, Rep.FirstName";
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+
+
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+                reader.Close();
+                connection.Close();
+                return dataTable;
+
+                //dataGridView1.DataSource = dataTable;
+
+
+                
+            }
+        }
+
+        public DataTable CustReport(String CustomerName)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+
+                //String CustomerName = textBox1.Text;
+                connection.Open();
+                //string query = Select
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT c.CustomerName, SUM(ol.QuotedPrice * ol.NumOrdered) AS TotalQuotedPrice FROM Orders o JOIN OrderLine ol ON o.OrderNum = ol.OrderNum JOIN Customer c ON o.CustomerNum = c.CustomerNum JOIN Item i ON ol.ItemNum = i.ItemNum WHERE c.CustomerName = @CustomerName GROUP BY c.CustomerName;", connection))
+                {
+                    cmd.Parameters.AddWithValue("@CustomerName", CustomerName);
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                    {
+                        DataTable dataTable = new DataTable();
+                        adapter.Fill(dataTable);
+                        //dataGridView1.DataSource = dataTable;
+                       
+                        connection.Close();
+                        return dataTable;
+                    }
+                }
+            }
+            
+        }
         /*
     ✓    * Login
          * Generate a report that for each representative, listing the number of customers

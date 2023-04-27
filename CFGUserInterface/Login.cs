@@ -25,7 +25,7 @@ namespace CFGUserInterface
 
         private void button2_Click(object sender, EventArgs e)
         {
-            RepDAO DAOinstance = new RepDAO();
+            DAO DAOinstance = new DAO();
             String name = textBox1.Text;
             String PW = textBox2.Text;
             
@@ -56,7 +56,7 @@ namespace CFGUserInterface
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            RepDAO DAOinstance = new RepDAO();
+            DAO DAOinstance = new DAO();
             String name = textBox1.Text;
             String PW = textBox2.Text;
 

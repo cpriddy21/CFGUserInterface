@@ -45,9 +45,9 @@
             // 
             // button1
             // 
-            button1.Location = new Point(334, 537);
+            button1.Location = new Point(282, 537);
             button1.Name = "button1";
-            button1.Size = new Size(242, 51);
+            button1.Size = new Size(380, 51);
             button1.TabIndex = 3;
             button1.Text = "Create Representative Report";
             button1.UseVisualStyleBackColor = true;

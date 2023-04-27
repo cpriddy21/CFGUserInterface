@@ -24,7 +24,7 @@ namespace CFGUserInterface
         public AddNewRep()
         {
             InitializeComponent();
-            RepDAO DAOinstance = new RepDAO();
+            DAO DAOinstance = new DAO();
 
 
 
@@ -35,7 +35,7 @@ namespace CFGUserInterface
 
         private void button1_Click(object sender, EventArgs e)
         {
-            RepDAO DAOinstance = new RepDAO();
+            DAO DAOinstance = new DAO();
             Rep rep = new Rep()
             {
                 RepNum = textBox1.Text,
@@ -54,7 +54,7 @@ namespace CFGUserInterface
             
         
 
-        DAOinstance.AddRep(rep);
+            DAOinstance.AddRep(rep);
             repBindingSource.DataSource = DAOinstance.getAllRep();
 
             dataGridView1.DataSource = repBindingSource;
@@ -63,7 +63,7 @@ namespace CFGUserInterface
 
         private void button2_Click(object sender, EventArgs e)
         {
-            RepDAO DAOinstance = new RepDAO();
+            DAO DAOinstance = new DAO();
 
 
 
